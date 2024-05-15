@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Oauth from "../components/Oauth";
 
 export default function SignUp() {
 
@@ -74,6 +75,7 @@ export default function SignUp() {
         >
           {loading ? "Loading..." : "Sign up"}
         </button>
+        <Oauth/>
         <div className="flex gap-2 mt-3">
           <p>Have an account?</p>
           <Link to={"/sign-in"}>
