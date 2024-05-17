@@ -7,7 +7,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { app } from "../firebase";
-import { updateUserStart, updateUserSuccess, updateUserFailure } from "../redux/user/userSlice.js";
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } from "../redux/user/userSlice.js";
 
 
 
@@ -83,6 +83,26 @@ export default function Profile() {
       dispatch(updateUserFailure(error.message));
     }
 
+  };
+
+  const handleDelete = async () => {
+    dispatch(deleteUserStart());
+    try {
+      const res = await fetch(`/api/user/delete/${currentUser._id}`,
+        {
+          method: 'DELETE',
+        },
+      );
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message))
+    }
+
   }
 
   return (
@@ -143,7 +163,7 @@ export default function Profile() {
           {loading ? "Updating.." : 'Update'}
         </button>
         <div className="mt-2 flex justify-between">
-          <span className="text-red-700  text-sm">Delete account</span>
+          <span className="text-red-700  text-sm" onClick={handleDelete}>Delete account</span>
           <span className="text-red-700 text-sm">Sign out</span>
         </div>
         <p className="text-red-700 mt-2 text-sm">
