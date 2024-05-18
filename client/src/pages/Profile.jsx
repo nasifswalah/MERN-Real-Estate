@@ -181,8 +181,8 @@ export default function Profile() {
           Create Listing
         </Link>
         <div className="mt-2 flex justify-between">
-          <span className="text-red-700  text-sm" onClick={handleDelete}>Delete account</span>
-          <span className="text-red-700 text-sm" onClick={handleSignOut}>Sign out</span>
+          <span className="text-red-700  text-sm cursor-pointer" onClick={handleDelete}>Delete account</span>
+          <span className="text-red-700 text-sm cursor-pointer" onClick={handleSignOut}>Sign out</span>
         </div>
         <p className="text-red-700 mt-2 text-sm">
           {error ? error : ''}</p>
