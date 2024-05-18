@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { app } from "../firebase";
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOutUserStart, signOutUserSuccess, signOutUserFailure } from "../redux/user/userSlice.js";
+import { Link } from "react-router-dom";
 
 
 
@@ -176,6 +177,9 @@ export default function Profile() {
         <button disabled={loading} className="bg-slate-700 p-3 rounded-lg border text-white">
           {loading ? "Updating.." : 'Update'}
         </button>
+        <Link className='bg-green-700 text-white p-3 rounded-lg  text-center hover:opacity-95' to={"/create-list"}>
+          Create Listing
+        </Link>
         <div className="mt-2 flex justify-between">
           <span className="text-red-700  text-sm" onClick={handleDelete}>Delete account</span>
           <span className="text-red-700 text-sm" onClick={handleSignOut}>Sign out</span>
