@@ -1,3 +1,4 @@
+import Listing from "../models/listingModel.js";
 import User from "../models/userModel.js";
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from 'bcryptjs';
@@ -45,3 +46,17 @@ export const deleteUser = async (req, res, next) => {
         next(error)
     }
 };
+
+export const getUserListings = async (req, res, next) => {
+    if (req.user.id === req.params.id) {
+      try {
+        const listings = await Listing.find({ userRef: req.params.id });
+        res.status(200).json(listings);
+        return;
+      } catch (error) {
+        next(error.message);
+      }
+    } else {
+      next(errorHandler(401, "You cannot access other users listings"));
+    }
+  };
